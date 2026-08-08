@@ -2,16 +2,16 @@
 
 This folder contains the **complete, real analysis code and processed data** underlying the
 manuscript *"The Inflammation-Adjusted Nutrition (IAN) Score: Association with Chronic Kidney
-Disease Prevalence in a US Adult Population from the NHANES Study"* (final revision, v6,
+Disease Prevalence in a US Adult Population from the NHANES Study"* (final revision, v7,
 submitted to *Medicine*).
 
 **Reporting guideline:** the manuscript was prepared in accordance with the STROBE
 (Strengthening the Reporting of Observational Studies in Epidemiology) checklist; the
 completed checklist accompanies the submission package.
 
-**Figures:** the submission package contains 7 main figures (Fig 1–7) and 7 supplementary
+**Figures:** the submission package contains 6 main figures (Fig 1–6) and 7 supplementary
 figures (SDC 1–7). The R scripts in `scripts/r/` regenerate all of them from the provided data
-(see §4.4).
+(see §4.5).
 
 All scripts use **relative paths resolved from the script's own location** — there are **no
 hardcoded absolute paths** anywhere in this folder. The code runs from any directory.
@@ -44,19 +44,11 @@ Code_and_Data/
 │   ├── logistic_regression_model3.csv
 │   ├── ml_model_comparison.csv
 │   ├── table1_ckd.csv
-│   ├── survey_weighted_results.csv  # design-based svyglm results (this release)
-│   ├── mr_nonalbumin_parsed.csv     # MR Table 1 data: non-albumin components, IVW (6 pairs)
-│   ├── mr_results.csv               # full TwoSampleMR output (all components x methods)
-│   ├── mr_heterogeneity.csv         # Cochran's Q (IVW / Egger)
-│   ├── mr_egger_pleiotropy.csv      # Egger intercept tests
-│   ├── mr_steiger.csv               # Steiger directionality tests
-│   ├── mr_presso.csv / mr_presso2.csv  # MR-PRESSO outlier / distortion tests
-│   └── mr_table_parsed.csv          # parsed MR summary table
+│   └── survey_weighted_results.csv  # design-based svyglm results (this release)
 ├── scripts/
 │   ├── *.py                      # Python pipeline (relative paths)
-│   └── r/                        # R figure + survey-weight + MR scripts (relative paths)
-│       ├── survey_weighted_regression.R   # proper NHANES design-based regression
-│       └── mr_ian_ckd.R                  # two-sample MR (TwoSampleMR / MR-PRESSO)
+│   └── r/                        # R figure + survey-weight scripts (relative paths)
+│       └── survey_weighted_regression.R  # proper NHANES design-based regression
 └── figures/                     # created on run (main/ + supplementary/)
 ```
 
@@ -119,26 +111,10 @@ reverse-coded hemoglobin/albumin), builds a correct `svydesign` object
 
 → writes `output/survey_weighted_results.csv`
 
-### 4.5 Two-sample Mendelian randomization (R — MR of IAN components)
+### 4.5 Publication figures (R / Python)
 ```bash
 cd scripts/r
-# OPENGWAS_JWT must be set for the IEU OpenGWAS API (free token from
-# https://api.opengwas.io/profile). Run with the output directory as argument:
-Rscript mr_ian_ckd.R ../../output
-```
-Exposures are the four IAN components from UKB European-ancestry GWAS
-(albumin, hemoglobin, neutrophil, lymphocyte); outcomes are non-UKB binary CKD
-consortia (CKDGen `ieu-a-1102` primary, FinnGen `finn-b-N14_CHRONKIDNEYDIS`
-sensitivity). The script runs IVW, MR-Egger, weighted median/simple/weighted
-mode, heterogeneity (Cochran's Q), Egger pleiotropy, Steiger directionality,
-MR-PRESSO, and leave-one-out plots. Each pair is wrapped in `tryCatch` so a
-single failure does not stop the run. The committed `output/mr_*.csv` files are
-the real results used in the manuscript (Table MR-1 / MR-S1; Fig 7).
-
-### 4.6 Publication figures (R / Python)
-```bash
-cd scripts/r
-Rscript generate_all_figures.R              # main figures (Fig 1-6; Fig 7 = MR forest, TwoSampleMR)
+Rscript generate_all_figures.R              # main figures (Fig 1–6)
 Rscript generate_supplemental_figures.R     # supplementary figures (SDC 1-7 in the submission)
 # adjust_figures_for_journal.Rmd documents the journal figure export spec
 # (TIFF >=600 dpi LZW + PDF); knit with rmarkdown if you want the DPI report.
@@ -147,7 +123,7 @@ python scripts/graphical_abstract.py
 ```
 Figures are written to `figures/main/` and `figures/supplementary/` as PDF + TIFF (≥600 dpi, LZW).
 Both R figure scripts were verified to run end-to-end on the provided data and
-reproduce all nine figures. (The `figures/` tree is git-ignored and regenerated
+reproduce all figures. (The `figures/` tree is git-ignored and regenerated
 on run — see `.gitignore`.)
 
 ---
