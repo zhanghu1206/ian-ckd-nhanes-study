@@ -1,0 +1,9 @@
+"Exposure","Outcome","nSNP","n_outliers","outlier_SNP","outlier_p","distortion_p"
+"Albumin","CKD_CKDGen",191,NA,"",NA,NA
+"Albumin","CKD_FinnGen",226,NA,"",NA,NA
+"Hemoglobin","CKD_CKDGen",292,NA,"",NA,NA
+"Hemoglobin","CKD_FinnGen",341,NA,"",NA,NA
+"Neutrophil","CKD_CKDGen",277,NA,"",NA,NA
+"Neutrophil","CKD_FinnGen",317,NA,"",NA,NA
+"Lymphocyte","CKD_CKDGen",321,NA,"",NA,NA
+"Lymphocyte","CKD_FinnGen",377,NA,"",NA,NA

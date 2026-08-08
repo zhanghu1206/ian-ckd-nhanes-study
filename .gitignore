@@ -1,0 +1,10 @@
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated figures (reproducible from scripts)
+figures/
+output/charts/
+
+# Keep processed data and raw NHANES data under version control.

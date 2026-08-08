@@ -1,0 +1,4 @@
+"Model","IAN_OR","CI_low","CI_high"
+"Model 1: IAN only (weighted)",1.395,1.35,1.442
+"Model 2: +age+sex (weighted)",1.276,1.228,1.326
+"Model 3/4: full covariates (weighted, design-based)",1.222,1.177,1.27
